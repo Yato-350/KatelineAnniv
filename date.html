@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anniversaire de Kateline</title>
+    <style>
+        /* Styles de base */
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        /* Compteur */
+        .countdown-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 2em;
+        }
+
+        .countdown-item {
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .countdown-digit {
+            font-size: 3em;
+            margin: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #3498db, #2980b9);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+            animation: pulse 1s infinite;
+        }
+
+        .countdown-label {
+            font-size: 1.5em;
+            margin-top: 5px;
+        }
+
+        /* Styles du bouton "Surprise !" */
+        .shiny-cta {
+            display: none; /* Masqué par défaut */
+            padding: 1.25rem 2.5rem;
+            font-size: 1.125rem;
+            font-family: inherit;
+            color: #ffffff;
+            background: linear-gradient(45deg, #1a73e8, #ff6f61);
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .shiny-cta:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Animation de pulsation */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Mon Anniversaire !</h1>
+
+    <div class="countdown-container" id="countdown">
+        <div class="countdown-item">
+            <div class="countdown-digit" id="days">00</div>
+            <div class="countdown-label">Jours</div>
+        </div>
+        <div class="countdown-item">
+            <div class="countdown-digit" id="hours">00</div>
+            <div class="countdown-label">Heures</div>
+        </div>
+        <div class="countdown-item"> 
+            <div class="countdown-digit" id="minutes">00</div>
+            <div class="countdown-label">Minutes</div>
+        </div>
+        <div class="countdown-item">
+            <div class="countdown-digit" id="seconds">00</div>
+            <div class="countdown-label">Secondes</div>
+        </div>
+    </div>
+
+    <button id="surpriseButton" class="shiny-cta">
+        <span>Surprise !</span>
+    </button>
+
+    <script>
+        // Date de fin de compte à rebours
+        const countDownDate = new Date("Dec 28, 2024 00:00:00").getTime();
+
+        // Mise à jour du compte à rebours chaque seconde
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = formatTime(days);
+            document.getElementById("hours").innerText = formatTime(hours);
+            document.getElementById("minutes").innerText = formatTime(minutes);
+            document.getElementById("seconds").innerText = formatTime(seconds);
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").style.display = "none";
+                document.getElementById("surpriseButton").style.display = "inline-block"; // Affiche le bouton
+                document.body.style.background = "radial-gradient(circle, #1a73e8, #243b55)"; // Change le fond
+            }
+        }, 1000);
+
+        // Fonction pour formater les valeurs du compteur avec des zéros en tête
+        function formatTime(time) {
+            return time < 10 ? "0" + time : time;
+        }
+
+        // Ajouter un événement de clic pour rediriger l'utilisateur
+        document.getElementById("surpriseButton").onclick = function() {
+            window.location.href = "index.html"; // Remplace par l'URL de destination
+        };
+    </script>
+</body>
+</html>
